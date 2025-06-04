@@ -1394,5 +1394,29 @@
   <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
   <script data-savepage-src="https://cdn.gpteng.co/gptengineer.js" data-savepage-type="module" type="text/plain">
   </script>
+  <script>
+  document.querySelectorAll('[data-radix-collection-item]').forEach(button => {
+    button.addEventListener('click', () => {
+      const controls = button.getAttribute('aria-controls');
+      const target = document.getElementById(controls);
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+
+      // Fecha todos
+      document.querySelectorAll('[data-radix-collection-item]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+      document.querySelectorAll('[role="region"]').forEach(div => {
+        div.setAttribute('data-state', 'closed');
+        div.setAttribute('hidden', '');
+      });
+
+      // Abre atual
+      if (!expanded) {
+        button.setAttribute('aria-expanded', 'true');
+        target.setAttribute('data-state', 'open');
+        target.removeAttribute('hidden');
+      }
+    });
+  });
+</script>
+
  </body>
 </html>
