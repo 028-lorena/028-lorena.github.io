@@ -2,6 +2,39 @@
 
 <html lang="pt-BR">
 <head>
+<script>
+  function getEventTime() {
+    return Math.floor(Date.now() / 1000);
+  }
+
+  function hashEmail(email) {
+    // precisa de uma função SHA256 real para funcionar aqui
+    return email; // substitua por hash real
+  }
+
+  const payload = {
+    data: [
+      {
+        event_name: "Purchase",
+        event_time: getEventTime(),
+        action_source: "website",
+        event_source_url: window.location.href,
+        user_data: {
+          em: [hashEmail("cliente@email.com")],
+          client_ip_address: "192.168.0.1", // opcional
+          client_user_agent: navigator.userAgent
+        },
+        custom_data: {
+          currency: "BRL",
+          value: 29.99,
+          content_name: "Arquivo Secreto da Mente Inquebrável"
+        }
+      }
+    ]
+  };
+
+  console.log("Payload de compra:", payload);
+</script>
 <meta content="O Arquivo Secreto da Mente Inquebrável" property="og:title"/>
 <meta content="A fórmula emocional para desbloquear padrões, restaurar força interna e ativar seu poder de decisão." property="og:description"/>
 <meta content="https://link-da-sua-imagem-capa.jpg" property="og:image"/>
