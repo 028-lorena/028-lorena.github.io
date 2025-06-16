@@ -2,7 +2,6 @@
 
 <html lang="pt-BR">
 <head>
-<!-- Meta Pixel Base Code -->
 <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
@@ -20,9 +19,6 @@
   <img height="1" width="1" style="display:none"
        src="https://www.facebook.com/tr?id=718747620906446&ev=PageView&noscript=1"/>
 </noscript>
-<!-- End Meta Pixel -->
-
-<!-- Pixel Avançado com Email SHA256 -->
 <script>
   async function hashEmail(email) {
     const encoder = new TextEncoder();
@@ -1517,33 +1513,16 @@ Mas algo dentro de você sabe... que esse momento é diferente.
   });
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  let metade = false;
-  window.addEventListener("scroll", () => {
-    if (!metade && window.scrollY > window.innerHeight / 2) {
-      fbq('trackCustom', 'ScrollDepth50');
-      metade = true;
-    }
+  document.addEventListener("DOMContentLoaded", function () {
+    let scrollTriggered = false;
+    window.addEventListener("scroll", () => {
+      if (!scrollTriggered && scrollY > window.innerHeight / 2) {
+        fbq('track', 'ScrollDepth50');
+        scrollTriggered = true;
+      }
+    });
   });
-});
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  let metade = false;
-  window.addEventListener("scroll", () => {
-    if (!metade && window.scrollY > window.innerHeight / 2) {
-      fbq('trackCustom', 'ScrollDepth50');
-      metade = true;
-    }
-  });
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  let metade = false;
-  window.addEventListener("scroll", () => {
-    if (!metade && window.scrollY > window.innerHeight / 2) {
-      fbq('trackCustom', 'ScrollDepth50');
       metade = true;
     }
   });
