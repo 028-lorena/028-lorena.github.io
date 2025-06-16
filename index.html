@@ -51,6 +51,22 @@ setTimeout(() => {
 setTimeout(() => {
   fbq('trackCustom', 'Tempo90s');
 }, 45000);
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let scrollTriggered = false;
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const triggerPoint = window.innerHeight / 2;
+
+      if (!scrollTriggered && scrollY > triggerPoint && typeof fbq === 'function') {
+        fbq('track', 'ScrollDepth50');
+        scrollTriggered = true;
+        console.log('ScrollDepth50 enviado');
+      }
+    });
+  });
+</script>
 </script>
 <meta content="O Arquivo Secreto da Mente Inquebrável" property="og:title"/>
 <meta content="A fórmula emocional para desbloquear padrões, restaurar força interna e ativar seu poder de decisão." property="og:description"/>
@@ -1496,14 +1512,13 @@ Mas algo dentro de você sabe... que esse momento é diferente.
       const target = document.getElementById(controls);
       const expanded = button.getAttribute('aria-expanded') === 'true';
 
-      // Fecha todos
+    
       document.querySelectorAll('[data-radix-collection-item]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
       document.querySelectorAll('[role="region"]').forEach(div => {
         div.setAttribute('data-state', 'closed');
         div.setAttribute('hidden', '');
       });
 
-      // Abre atual
       if (!expanded) {
         button.setAttribute('aria-expanded', 'true');
         target.setAttribute('data-state', 'open');
@@ -1511,17 +1526,5 @@ Mas algo dentro de você sabe... que esse momento é diferente.
       }
     });
   });
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    let scrollTriggered = false;
-
-    window.addEventListener("scroll", () => {
-      if (!scrollTriggered && window.pageYOffset > window.innerHeight / 2) {
-        fbq('track', 'ScrollDepth50');
-        scrollTriggered = true;
-      }
-    });
-  });
-</script>
 </script></body>
 </html>
