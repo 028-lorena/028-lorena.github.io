@@ -1515,18 +1515,14 @@ Mas algo dentro de você sabe... que esse momento é diferente.
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     let scrollTriggered = false;
+
     window.addEventListener("scroll", () => {
-      if (!scrollTriggered && scrollY > window.innerHeight / 2) {
+      if (!scrollTriggered && window.pageYOffset > window.innerHeight / 2) {
         fbq('track', 'ScrollDepth50');
         scrollTriggered = true;
-</script>
-<script>
-let visitadoAntes = localStorage.getItem('visitou');
-if (visitadoAntes === 'sim') {
-  fbq('trackCustom', 'RetornoAoSite');
-} else {
-  localStorage.setItem('visitou', 'sim');
-}
+      }
+    });
+  });
 </script>
 </script></body>
 </html>
