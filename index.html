@@ -2,38 +2,49 @@
 
 <html lang="pt-BR">
 <head>
+<!-- Meta Pixel Base Code -->
 <script>
-  function getEventTime() {
-    return Math.floor(Date.now() / 1000);
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
+  n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  
+  fbq('init', 'SEU_PIXEL_ID_AQUI');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=SEU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel -->
+
+<!-- Pixel Avançado com Email SHA256 -->
+<script>
+  async function hashEmail(email) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(email.trim().toLowerCase());
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  function hashEmail(email) {
-    // precisa de uma função SHA256 real para funcionar aqui
-    return email; // substitua por hash real
+  async function enviarEventoComEmail(email) {
+    const hashedEmail = await hashEmail(email);
+
+    fbq('track', 'Purchase', {
+      value: 99.90, 
+      currency: 'BRL',
+      em: hashedEmail
+    });
   }
 
-  const payload = {
-    data: [
-      {
-        event_name: "Purchase",
-        event_time: getEventTime(),
-        action_source: "website",
-        event_source_url: window.location.href,
-        user_data: {
-          em: [hashEmail("cliente@email.com")],
-          client_ip_address: "192.168.0.1", // opcional
-          client_user_agent: navigator.userAgent
-        },
-        custom_data: {
-          currency: "BRL",
-          value: 29.99,
-          content_name: "Arquivo Secreto da Mente Inquebrável"
-        }
-      }
-    ]
-  };
-
-  console.log("Payload de compra:", payload);
+  // Exemplo de uso: chame isso quando o usuário finalizar compra
+  // enviarEventoComEmail('usuario@email.com');
+</script>
 </script>
 <script>
 setTimeout(() => {
