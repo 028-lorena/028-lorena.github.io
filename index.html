@@ -12,8 +12,22 @@
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
 
-   fbq('init', '718747620906446');
-   fbq('track', 'PageView');
+  fbq('init', '718747620906446');
+  fbq('track', 'PageView');
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let scrollTriggered = false;
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      if (!scrollTriggered && scrollY > window.innerHeight / 2 && typeof fbq === 'function') {
+        fbq('track', 'ScrollDepth50');
+        scrollTriggered = true;
+        console.log('ScrollDepth50 enviado');
+      }
+    });
+  });
 </script>
 <noscript>
   <img height="1" width="1" style="display:none"
@@ -51,22 +65,6 @@ setTimeout(() => {
 setTimeout(() => {
   fbq('trackCustom', 'Tempo90s');
 }, 45000);
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    let scrollTriggered = false;
-
-    window.addEventListener("scroll", () => {
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      const triggerPoint = window.innerHeight / 2;
-
-      if (!scrollTriggered && scrollY > triggerPoint && typeof fbq === 'function') {
-        fbq('track', 'ScrollDepth50');
-        scrollTriggered = true;
-        console.log('ScrollDepth50 enviado');
-      }
-    });
-  });
-</script>
 </script>
 <meta content="O Arquivo Secreto da Mente Inquebrável" property="og:title"/>
 <meta content="A fórmula emocional para desbloquear padrões, restaurar força interna e ativar seu poder de decisão." property="og:description"/>
