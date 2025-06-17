@@ -2,32 +2,6 @@
 
 <head>
 <script>
-  function getParameterByName(name) {
-      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-          results = regex.exec(location.search);
-      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-  }
-
-  var fbcParam = getParameterByName('fbclid');
-  if (fbcParam) {
-    var now = new Date();
-    var timestamp = now.getTime();
-    document.cookie = "_fbc=fb.1." + timestamp + "." + fbcParam + "; path=/; domain=" + location.hostname + ";";
-  }
-</script>
-
-
-<script>
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-</script>
-
-
-<script>
   document.addEventListener("DOMContentLoaded", function () {
     let scrollTriggered = false;
 
@@ -45,12 +19,49 @@ function getCookie(name) {
 
 <script>
 setTimeout(() => {
-  fbq('trackCustom', 'Tempo45s');
+  if (typeof fbq === 'function') {
+    fbq('trackCustom', 'Tempo45s');
+  }
 }, 45000);
 
 setTimeout(() => {
-  fbq('trackCustom', 'Tempo90s');
+  if (typeof fbq === 'function') {
+    fbq('trackCustom', 'Tempo90s');
+  }
 }, 90000);
+</script>
+
+
+<script>
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  async function hashEmail(email) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(email.trim().toLowerCase());
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function enviarEventoComEmail(email) {
+    const hashedEmail = await hashEmail(email);
+    const fbc = getCookie('_fbc');
+    const fbp = getCookie('_fbp');
+    const eventId = 'purchase_' + new Date().getTime();
+
+    fbq('track', 'Purchase', {
+      value: 29.99,
+      currency: 'BRL',
+      em: hashedEmail,
+      fbc: fbc,
+      fbp: fbp,
+      event_id: eventId
+    });
+  }
 </script>
 
 
