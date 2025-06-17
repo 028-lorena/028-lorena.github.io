@@ -1492,7 +1492,7 @@ Mas algo dentro de você sabe... que esse momento é diferente.
 </div>
 <div class="border-t border-gray-900 pt-6">
 <p class="text-xs text-gray-600">
-         © 2024 Arquivo Secreto da Mente Inquebrável
+         © 2025 Arquivo Secreto da Mente Inquebrável
         </p>
 </div>
 </div>
@@ -1524,5 +1524,26 @@ Mas algo dentro de você sabe... que esse momento é diferente.
       }
     });
   });
+<script>
+  function getUserParams() {
+    return {
+      ip_address: '', 
+      user_agent: navigator.userAgent,
+      external_id: '',
+      fbc: getCookie('_fbc'),
+      fbp: getCookie('_fbp'),
+      city: '',      
+      state: '',
+      postal_code: '',
+      country: 'BR'
+    };
+  }
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+</script>
 </script></body>
 </html>
