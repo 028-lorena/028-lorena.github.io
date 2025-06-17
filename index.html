@@ -1,27 +1,6 @@
 <!DOCTYPE html>
 
 <head>
-<!-- Meta Pixel -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
-  n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-
-  fbq('init', '718747620906446');
-  fbq('track', 'PageView');
-</script>
-
-<noscript>
-  <img height="1" width="1" style="display:none"
-       src="https://www.facebook.com/tr?id=718747620906446&ev=PageView&noscript=1"/>
-</noscript>
-
-
 <script>
   function getParameterByName(name) {
       name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -38,6 +17,7 @@
   }
 </script>
 
+
 <script>
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -45,7 +25,8 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 </script>
-  
+
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     let scrollTriggered = false;
@@ -61,6 +42,7 @@ function getCookie(name) {
   });
 </script>
 
+
 <script>
 setTimeout(() => {
   fbq('trackCustom', 'Tempo45s');
@@ -71,49 +53,7 @@ setTimeout(() => {
 }, 90000);
 </script>
 
-<script>
-function enviarAddToCart() {
-  const fbc = getCookie('_fbc');
-  const fbp = getCookie('_fbp');
-  const eventId = 'addtocart_' + new Date().getTime();
 
-  fbq('track', 'AddToCart', {
-    content_name: 'O Arquivo Secreto da Mente Inquebrável',
-    content_category: 'Infoproduto',
-    value: 29.99,
-    currency: 'BRL',
-    fbc: fbc,
-    fbp: fbp,
-    event_id: eventId
-  });
-}
-</script>
-  
-<script>
-  async function hashEmail(email) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(email.trim().toLowerCase());
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  async function enviarEventoComEmail(email) {
-    const hashedEmail = await hashEmail(email);
-    const fbc = getCookie('_fbc');
-    const fbp = getCookie('_fbp');
-    const eventId = 'purchase_' + new Date().getTime();
-
-    fbq('track', 'Purchase', {
-      value: 29.99,
-      currency: 'BRL',
-      em: hashedEmail,
-      fbc: fbc,
-      fbp: fbp,
-      event_id: eventId
-    });
-  }
-</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content="Reprograme sua mente, quebre crenças limitantes e instale o comportamento dos 0,01% que vencem na vida. Nunca mais se sabote."/>
