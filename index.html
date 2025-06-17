@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <head>
+<html lang="pt-BR">
+<head>
 <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
@@ -12,6 +14,7 @@
   'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '718747620906446');
+  fbq('track', 'PageView');
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -27,30 +30,26 @@
     });
   });
 </script>
-
-
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=718747620906446&ev=PageView&noscript=1"/>
+</noscript>
 <script>
-setTimeout(() => {
-  if (typeof fbq === 'function') {
-    fbq('trackCustom', 'Tempo45s');
+  function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
-}, 45000);
 
-setTimeout(() => {
-  if (typeof fbq === 'function') {
-    fbq('trackCustom', 'Tempo90s');
+  var fbcParam = getParameterByName('fbclid');
+  if (fbcParam) {
+    var now = new Date();
+    var timestamp = now.getTime();
+    document.cookie = "_fbc=fb.1." + timestamp + "." + fbcParam + "; path=/; domain=" + location.hostname + ";";
   }
-}, 90000);
 </script>
-
-
 <script>
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
   async function hashEmail(email) {
     const encoder = new TextEncoder();
     const data = encoder.encode(email.trim().toLowerCase());
@@ -61,34 +60,38 @@ setTimeout(() => {
 
   async function enviarEventoComEmail(email) {
     const hashedEmail = await hashEmail(email);
-    const fbc = getCookie('_fbc');
-    const fbp = getCookie('_fbp');
-    const eventId = 'purchase_' + new Date().getTime();
 
     fbq('track', 'Purchase', {
-      value: 29.99,
+      value: 29.99, 
       currency: 'BRL',
-      em: hashedEmail,
-      fbc: fbc,
-      fbp: fbp,
-      event_id: eventId
+      em: hashedEmail
     });
   }
+
 </script>
-
-
+</script>
+<script>
+setTimeout(() => {
+  fbq('trackCustom', 'Tempo45s');
+}, 45000);
+</script>
+<script>
+setTimeout(() => {
+  fbq('trackCustom', 'Tempo90s');
+}, 90000);
+</script>
+<meta content="O Arquivo Secreto da Mente Inquebrável" property="og:title"/>
+<meta content="A fórmula emocional para desbloquear padrões, restaurar força interna e ativar seu poder de decisão." property="og:description"/>
+<meta content="https://link-da-sua-imagem-capa.jpg" property="og:image"/>
+<meta content="https://028-lorena.github.io/" property="og:url"/>
+<meta content="O Arquivo Secreto da Mente Inquebrável" property="og:title"/>
+<meta content="Desbloqueie o que está travando sua mente e ative seu poder interior." property="og:description"/>
+<meta content="https://link-da-sua-imagem.jpg" property="og:image"/>
+<meta content="https://028-lorena.github.io/" property="og:url"/>
+<meta content="website" property="og:type"/>
+<link data-savepage-href="https://028-lorena.github.io/favicon.ico" href="data:image/vnd.microsoft.icon;base64,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" rel="icon"/>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Reprograme sua mente, quebre crenças limitantes e instale o comportamento dos 0,01% que vencem na vida. Nunca mais se sabote."/>
-<meta name="author" content="Lorena Almeida"/>
-<meta property="og:title" content="O Arquivo Secreto da Mente Inquebrável"/>
-<meta property="og:description" content="A fórmula emocional para desbloquear padrões, restaurar força interna e ativar seu poder de decisão."/>
-<meta property="og:image" content="https://link-da-sua-imagem-capa.jpg"/>
-<meta property="og:url" content="https://www.reerguidosnocaos.com.br"/>
-<meta property="og:type" content="website"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:site" content="@lorena_almeida"/>
-<meta name="twitter:image" content="https://link-da-sua-imagem-capa.jpg"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Arquivo Secreto da Mente Inquebrável</title>
 <link rel="icon" href="data:image/vnd.microsoft.icon;base64,..."/>
 </head>
