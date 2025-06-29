@@ -1254,75 +1254,76 @@ Mas algo dentro de você sabe... que esse momento é diferente.
 <p class="mt-4 text-gray-400">
         Insatisfeito? Devolvemos 100% do seu dinheiro sem perguntas.
        </p>
-</div>
-</div>
-</div>
-<footer class="bg-black text-gray-500 py-12">
-<div class="container mx-auto px-4">
-<div class="max-w-4xl mx-auto">
-<div class="text-center space-y-6">
-<div class="text-xs space-x-6">
-<a class="hover:text-gray-400 transition-colors" data-savepage-href="/suporte" href="https://028-lorena.github.io/suporte">
-         Suporte
-        </a>
-<a class="hover:text-gray-400 transition-colors" data-savepage-href="/termos" href="https://028-lorena.github.io/termos">
-         Termos de Uso
-        </a>
-<a class="hover:text-gray-400 transition-colors" data-savepage-href="/privacidade" href="https://028-lorena.github.io/privacidade">
-         Política de Privacidade
-        </a>
-</div>
-<div class="border-t border-gray-900 pt-6">
-<p class="text-xs text-gray-600">
-         © 2025 Arquivo Secreto da Mente Inquebrável
-        </p>
-</div>
-</div>
-</div>
-</div>
-</footer>
-</section></div>
-<script data-savepage-src="https://cdn.gpteng.co/gptengineer.js" data-savepage-type="module" type="text/plain">
-</script>
-<script>
-  document.querySelectorAll('[data-radix-collection-item]').forEach(button => {
-    button.addEventListener('click', () => {
-      const controls = button.getAttribute('aria-controls');
-      const target = document.getElementById(controls);
-      const expanded = button.getAttribute('aria-expanded') === 'true';
-
-    
-      document.querySelectorAll('[data-radix-collection-item]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
-      document.querySelectorAll('[role="region"]').forEach(div => {
-        div.setAttribute('data-state', 'closed');
-        div.setAttribute('hidden', '');
-      });
-
-      if (!expanded) {
-        button.setAttribute('aria-expanded', 'true');
-        target.setAttribute('data-state', 'open');
-        target.removeAttribute('hidden');
-      }
-    });
-  });
-<script>
-  function getUserParams() {
-    return {
-      ip_address: '', 
-      user_agent: navigator.userAgent,
-      external_id: '',
-      fbc: getCookie('_fbc'),
-      fbp: getCookie('_fbp'),
-      city: '',      
-      state: '',
-      postal_code: '',
-      country: 'BR'
-    };
-  }
-
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-</script>
+      </div>
+    </div>
+    </div>
+       <footer class="bg-black text-gray-500 py-12">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <div class="text-center space-y-6">
+              <div class="text-xs space-x-6">
+                <a class="hover:text-gray-400 transition-colors" href="https://028-lorena.github.io/suporte">Suporte</a>
+                <a class="hover:text-gray-400 transition-colors" href="https://028-lorena.github.io/termos">Termos de Uso</a>
+                <a class="hover:text-gray-400 transition-colors" href="https://028-lorena.github.io/privacidade">Política de Privacidade</a>
+              </div>
+              <div class="border-t border-gray-900 pt-6">
+                <p class="text-xs text-gray-600">
+                  © 2025 Arquivo Secreto da Mente Inquebrável. Todos os direitos reservados.
+                </p>
+              </div>
+            </div>
+          </div>
+      </footer>
+      
+      <!-- ✅ SCRIPT DE COMPORTAMENTO DE EXPANSÃO/ACORDION -->
+      <script defer>
+        document.querySelectorAll('[data-radix-collection-item]').forEach(button => {
+          button.addEventListener('click', () => {
+            const controls = button.getAttribute('aria-controls');
+            const target = document.getElementById(controls);
+            const expanded = button.getAttribute('aria-expanded') === 'true';
+      
+            document.querySelectorAll('[data-radix-collection-item]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+            document.querySelectorAll('[role="region"]').forEach(div => {
+              div.setAttribute('data-state', 'closed');
+              div.setAttribute('hidden', '');
+            });
+      
+            if (!expanded) {
+              button.setAttribute('aria-expanded', 'true');
+              target.setAttribute('data-state', 'open');
+              target.removeAttribute('hidden');
+            }
+          });
+        });
+      </script>
+      
+      <!-- ✅ USER PARAMS TRACKING E PRIVACIDADE -->
+      <script defer>
+        function getCookie(name) {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+      
+        function getUserParams() {
+          return {
+            ip_address: '', // Se usar backend ou servidor, popular aqui.
+            user_agent: navigator.userAgent,
+            external_id: '',
+            fbc: getCookie('_fbc'),
+            fbp: getCookie('_fbp'),
+            city: '',      
+            state: '',
+            postal_code: '',
+            country: 'BR'
+          };
+        }
+      
+        // Exemplo de como usar:
+        // console.log(getUserParams());
+      </script>
+      
+      <!-- ✅ OPCIONAL: BIBLIOTECA EXTERNA SE FOR REALMENTE NECESSÁRIA -->
+      <script src="https://cdn.gpteng.co/gptengineer.js" type="module" defer></script>
+  
