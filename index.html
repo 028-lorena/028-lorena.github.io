@@ -91,15 +91,57 @@
 	          });
 	        }
 	        <script>
-  const eventID = 'atc_' + Date.now(); 
+const eventID = 'atc_' + Date.now();
 
-  fbq('track', 'AddToCart', {
-    content_ids: ['OFFC78578'],         // Substitua pelo ID real do seu produto
-    content_type: 'product',
+fbq('track', 'AddToCart', {
+  content_ids: ['OFFC78578'],
+  content_type: 'product',
+  value: 29.99,
+  currency: 'BRL',
+  eventID: eventID
+});
+
+// Exemplo: enviar pro backend via fetch
+fetch('/api/addtocart', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    eventID: eventID,
+    content_ids: ['OFFC78578'],
     value: 29.99,
-    currency: 'BRL',
-    eventID: 718747620906446                   // Agora está dinâmico e pronto para sincronizar com API
+    currency: 'BRL'
+  })
+});
+const fetch = require('node-fetch');
+
+async function sendAddToCartToMeta(data) {
+  await fetch('https://graph.facebook.com/v18.0/718747620906446/events', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      data: [
+        {
+          event_name: 'AddToCart',
+          event_time: Math.floor(Date.now() / 1000),
+          user_data: {
+            // Hash do email ou telefone
+            em: ['<hash>']
+          },
+          custom_data: {
+            content_ids: data.content_ids,
+            value: data.value,
+            currency: data.currency
+          },
+          event_source_url: 'www.reerguidosnocaos.com',
+          action_source: 'website',
+          event_id: data.eventID
+        }
+      ],
+      access_token: '<EAAUQB01YyOUBPDwA4PB34spkfLgpBVBDmZCJCLHHzoZBZALYKQKq2bbAiejGBzRYv6EIxAeelZBdSGCq13ZAdqLHOVX7QfLRf8Hs1UumM4Sq2yEBitc7RpbljRGH73sgJ2XGYzYx12TlxoLa7Wc1Vrpry9VyD8AifgZBS3ekKSA9ZAMjZBdjhgpBNh2TlagjjyjnEAZDZD>'
+    })
   });
+}
+
 </script>
 
 	</script>
