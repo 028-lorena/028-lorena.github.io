@@ -1097,28 +1097,35 @@
 		</script> <!-- ✅ USER PARAMS TRACKING E PRIVACIDADE -->
 		 
 		<script defer>
-		    function getCookie(name) {
-		      const value = `; ${document.cookie}`;
-		      const parts = value.split(`; ${name}=`);
-		      if (parts.length === 2) return parts.pop().split(';').shift();
-		    }
-		    
-		    function getUserParams() {
-		      return {
-		        ip_address: '', // Se usar backend ou servidor, popular aqui.
-		        user_agent: navigator.userAgent,
-		        external_id: '',
-		        fbc: getCookie('_fbc'),
-		        fbp: getCookie('_fbp'),
-		        city: '',      
-		        state: '',
-		        postal_code: '',
-		        country: 'BR'
-		      };
-		    }
-		    
-		    
-		</script> 
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  async function getGeoData() {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+
+      return {
+        city: data.city || '',
+        state: data.region || '',
+        postal_code: data.postal || '',
+        country: data.country || 'BR',
+        user_agent: navigator.userAgent,
+        fbc: getCookie('_fbc'),
+        fbp: getCookie('_fbp'),
+        external_id: '', // você pode colocar um ID único de cliente, se tiver
+        ip_address: ''   // via servidor (não via browser)
+      };
+    } catch (e) {
+      console.error('Erro ao buscar localização', e);
+      return {};
+    }
+  }
+</script>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     // Scroll até 50%
