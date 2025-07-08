@@ -1153,12 +1153,6 @@
 		<script>
   const eventID = 'evt_' + Date.now();
 
-  document.getElementById('btn-comprar').addEventListener('click', function () {
-    fbq('track', 'AddToCart', { eventID: eventID });
-    setTimeout(() => {
-      window.location.href = 'https://checkout.seusite.com';
-    }, 300);
-  });
 </script>
 <script>
   (function () {
