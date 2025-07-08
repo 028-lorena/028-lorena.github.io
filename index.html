@@ -30,120 +30,32 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="preload">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Facebook Pixel Code -->
-	<script>
-	 !function(f,b,e,v,n,t,s)
-	 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-	 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-	 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-	 n.queue=[];t=b.createElement(e);t.async=!0;
-	 t.src=v;s=b.getElementsByTagName(e)[0];
-	 s.parentNode.insertBefore(t,s)}(window, document,'script',
-	 'https://connect.facebook.net/en_US/fbevents.js');
-	 fbq('init', '718747620906446');
-	 fbq('track', 'PageView');
-	</script>
-	<script>
-	        document.addEventListener("DOMContentLoaded", function () {
-	          let scrollTriggered = false;
-	        
-	          window.addEventListener("scroll", () => {
-	            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-	            if (!scrollTriggered && scrollY > window.innerHeight / 2 && typeof fbq === 'function') {
-	              fbq('track', 'ScrollDepth50');
-	              scrollTriggered = true;
-	              console.log('ScrollDepth50 enviado');
-	            }
-	          });
-	        });
-	</script>
-	<script>
-	        function getParameterByName(name) {
-	            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	                results = regex.exec(location.search);
-	            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-	        }
-	        
-	        var fbcParam = getParameterByName('fbclid');
-	        if (fbcParam) {
-	          var now = new Date();
-	          var timestamp = now.getTime();
-	          document.cookie = "_fbc=fb.1." + timestamp + "." + fbcParam + "; path=/; domain=" + location.hostname + ";";
-	        }
-	</script>
-	<script>
-	        async function hashEmail(email) {
-	          const encoder = new TextEncoder();
-	          const data = encoder.encode(email.trim().toLowerCase());
-	          const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-	          const hashArray = Array.from(new Uint8Array(hashBuffer));
-	          return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-	        }
-	        
-	        async function enviarEventoComEmail(email) {
-	          const hashedEmail = await hashEmail(email);
-	        
-	          fbq('track', 'Purchase', {
-	            value: 29.99, 
-	            currency: 'BRL',
-	            em: hashedEmail
-	          });
-	        }
-	        <script>
-const eventID = 'atc_' + Date.now();
 
-fbq('track', 'AddToCart', {
-  content_ids: ['OFFC78578'],
-  content_type: 'product',
-  value: 29.99,
-  currency: 'BRL',
-  eventID: eventID
-});
 
-// Exemplo: enviar pro backend via fetch
-fetch('/api/addtocart', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    eventID: eventID,
-    content_ids: ['OFFC78578'],
-    value: 29.99,
-    currency: 'BRL'
-  })
-});
-const fetch = require('node-fetch');
+<!-- Facebook Pixel Code (Bilionário Underground) -->
+<script>
+  !function(f,b,e,v,n,t,s){
+    if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)
+  }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-async function sendAddToCartToMeta(data) {
-  await fetch('https://graph.facebook.com/v18.0/718747620906446/events', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      data: [
-        {
-          event_name: 'AddToCart',
-          event_time: Math.floor(Date.now() / 1000),
-          user_data: {
-            // Hash do email ou telefone
-            em: ['<hash>']
-          },
-          custom_data: {
-            content_ids: data.content_ids,
-            value: data.value,
-            currency: data.currency
-          },
-          event_source_url: 'www.reerguidosnocaos.com',
-          action_source: 'website',
-          event_id: data.eventID
-        }
-      ],
-      access_token: '<EAAUQB01YyOUBPDwA4PB34spkfLgpBVBDmZCJCLHHzoZBZALYKQKq2bbAiejGBzRYv6EIxAeelZBdSGCq13ZAdqLHOVX7QfLRf8Hs1UumM4Sq2yEBitc7RpbljRGH73sgJ2XGYzYx12TlxoLa7Wc1Vrpry9VyD8AifgZBS3ekKSA9ZAMjZBdjhgpBNh2TlagjjyjnEAZDZD>'
-    })
-  });
-}
-
+  fbq('init', '718747620906446');
+  fbq('track', 'PageView');
 </script>
 
+<noscript>
+  <img height="1" width="1" style="display:none" 
+  src="https://www.facebook.com/tr?id=718747620906446&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Facebook Pixel Code -->
+
+
+
+	
 	</script>
 	<script async data-utmify-prevent-subids="" data-utmify-prevent-xcod-sck="" defer src="https://cdn.utmify.com.br/scripts/utms/latest.js">
 	</script>
@@ -213,6 +125,8 @@ async function sendAddToCartToMeta(data) {
 						ARQUIVO CONFIDENCIAL
 					</div>
 				</div>
+<button id="btn-comprar">Quero Acessar Agora</button>
+
 			</header>
 
 
@@ -1205,6 +1119,27 @@ async function sendAddToCartToMeta(data) {
 		    
 		    
 		</script> 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Scroll até 50%
+    let scrollTriggered = false;
+    window.addEventListener("scroll", () => {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      if (!scrollTriggered && scrollY > window.innerHeight / 2 && typeof fbq === 'function') {
+        fbq('trackCustom', 'ScrollDepth50');
+        scrollTriggered = true;
+        console.log('ScrollDepth50 enviado');
+      }
+    });
+
+    // Tempo na página: 30 segundos
+    setTimeout(function () {
+      fbq('trackCustom', 'EngagedUser30s');
+      console.log('EngagedUser30s enviado');
+    }, 30000);
+  });
+</script>
+
 		<script>
 		       setTimeout(() => {
 		         fbq('trackCustom', 'Tempo45s');
@@ -1215,6 +1150,32 @@ async function sendAddToCartToMeta(data) {
 		         fbq('trackCustom', 'Tempo90s');
 		       }, 90000);
 		</script>
+		<script>
+  const eventID = 'evt_' + Date.now();
+
+  document.getElementById('btn-comprar').addEventListener('click', function () {
+    fbq('track', 'AddToCart', { eventID: eventID });
+    setTimeout(() => {
+      window.location.href = 'https://checkout.seusite.com';
+    }, 300);
+  });
+</script>
+<script>
+  (function () {
+    function getParameterByName(name) {
+      const match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+      return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+
+    const fbcParam = getParameterByName('fbclid');
+    if (fbcParam) {
+      const now = new Date().getTime();
+      document.cookie = `_fbc=fb.1.${now}.${fbcParam}; path=/; domain=${location.hostname};`;
+    }
+  })();
+</script>
+<script async defer src="https://cdn.utmify.com.br/scripts/utms/latest.js"></script>
+
 	</section>
 </body>
 </html>
