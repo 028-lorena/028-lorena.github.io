@@ -31,8 +31,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 
-
-<!-- Facebook Pixel Code (Bilionário Underground) -->
+<!-- Facebook Pixel Code -->
 <script>
   !function(f,b,e,v,n,t,s){
     if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
@@ -435,7 +434,7 @@
   <a 
     class="w-full max-w-[90vw] mx-auto text-black font-bold text-base sm:text-xl py-3 sm:py-4 rounded-xl bg-gradient-to-r from-yellow-500 to-red-600 border border-yellow-400 shadow-[0_0_20px_#ffcc00] hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-2 text-center break-words px-4"
     href="https://payment.ticto.app/OFFC78578?utm_source=meta&utm_campaign=menteinquebravel" 
-    onclick="fbq('trackCustom', 'ClickBotaoSemCompra'); fbq('track', 'Lead'); fbq('track', 'InitiateCheckout');" 
+    onclick="fbq('track', 'Lead'); fbq('track', 'InitiateCheckout');" 
     rel="noopener noreferrer" 
     target="_blank"
   >
@@ -1138,13 +1137,6 @@
         console.log('ScrollDepth50 enviado');
       }
     });
-
-    // Tempo na página: 30 segundos
-    setTimeout(function () {
-      fbq('trackCustom', 'EngagedUser30s');
-      console.log('EngagedUser30s enviado');
-    }, 30000);
-  });
 </script>
 
 		<script>
