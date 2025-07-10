@@ -51,6 +51,45 @@
   src="https://www.facebook.com/tr?id=718747620906446&ev=PageView&noscript=1"/>
 </noscript>
 <!-- End Facebook Pixel Code -->
+
+	<script>
+  // Captura e aplica FBC (ID do clique)
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+  const fbcParam = getParameterByName('fbclid');
+  if (fbcParam) {
+    const timestamp = Date.now();
+    document.cookie = `_fbc=fb.1.${timestamp}.${fbcParam}; path=/; domain=${location.hostname};`;
+  }
+</script>
+<script>
+  async function hashEmail(email) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(email.trim().toLowerCase());
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function enviarEventoCompra(email) {
+    const hashedEmail = await hashEmail(email);
+
+    fbq('track', 'Purchase', {
+      value: 29.99,
+      currency: 'BRL',
+      em: hashedEmail,
+      user_agent: navigator.userAgent,
+      external_id: `user_${Date.now()}`
+    });
+
+    console.log("Evento Purchase com hash de email enviado.");
+  }
+</script>
 	
 	</script>
 	<script async data-utmify-prevent-subids="" data-utmify-prevent-xcod-sck="" defer src="https://cdn.utmify.com.br/scripts/utms/latest.js">
