@@ -68,28 +68,34 @@
   }
 </script>
 <script>
-  async function hashEmail(email) {
+  // Hash SHA-256
+  async function hashSHA256(input) {
     const encoder = new TextEncoder();
-    const data = encoder.encode(email.trim().toLowerCase());
+    const data = encoder.encode(input.trim().toLowerCase());
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  async function enviarEventoCompra(email) {
-    const hashedEmail = await hashEmail(email);
+  // Enviar evento com e-mail + telefone
+  async function enviarAddToCart(email, telefone, fbLoginID = '') {
+    const hashedEmail = await hashSHA256(email);
+    const hashedPhone = await hashSHA256(telefone);
 
-    fbq('track', 'Purchase', {
+    fbq('track', 'AddToCart', {
       value: 29.99,
       currency: 'BRL',
       em: hashedEmail,
+      ph: hashedPhone,
       user_agent: navigator.userAgent,
+      fb_login_id: fbLoginID,
       external_id: `user_${Date.now()}`
     });
 
-    console.log("Evento Purchase com hash de email enviado.");
+    console.log("Evento AddToCart avançado enviado.");
   }
 </script>
+
 	
 	</script>
 	<script async data-utmify-prevent-subids="" data-utmify-prevent-xcod-sck="" defer src="https://cdn.utmify.com.br/scripts/utms/latest.js">
