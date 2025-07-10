@@ -210,10 +210,16 @@
 			<div class="text-center">
 				<a 
   class="inline-flex items-center justify-center gap-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary hover:bg-primary/90 font-bold transition-all duration-300 hover:scale-105 border-2 tracking-wide shadow-2xl relative overflow-hidden group bg-gradient-to-r from-yellow-500 to-red-600 text-black hover:from-yellow-400 hover:to-red-500 border-yellow-400 py-4 px-6 sm:py-6 sm:px-12 rounded-xl shadow-yellow-500/50 text-base sm:text-lg text-center text-wrap break-words"
-  href="https://payment.ticto.app/OFFC78578?utm_source=meta&utm_campaign=menteinquebravel" 
-  onclick="fbq('trackCustom', 'ClickBotaoSemCompra'); fbq('track', 'Lead'); fbq('track', 'InitiateCheckout');" 
-  rel="noopener noreferrer" 
-  target="_blank">
+  href="https://payment.ticto.app/OFFC78578?utm_source=meta&utm_campaign=menteinquebravel"
+  target="_blank" 
+  rel="noopener noreferrer"
+  onclick="fbq('trackCustom', 'ClickBotaoSemCompra'); 
+           fbq('track', 'Lead'); 
+           fbq('track', 'InitiateCheckout'); 
+           enviarAddToCart(
+             document.getElementById('email').value, 
+             document.getElementById('telefone').value
+           );" 
   <span class="relative z-10">🔥 QUERO QUEBRAR O CICLO ANTES QUE ELE ME DESTRUA – R$29,99</span>
   <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
 </div>
@@ -478,10 +484,16 @@
 				<div class="mb-8 animate-pulse-attention">
   <a 
     class="w-full max-w-[90vw] mx-auto text-black font-bold text-base sm:text-xl py-3 sm:py-4 rounded-xl bg-gradient-to-r from-yellow-500 to-red-600 border border-yellow-400 shadow-[0_0_20px_#ffcc00] hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-2 text-center break-words px-4"
-    href="https://payment.ticto.app/OFFC78578?utm_source=meta&utm_campaign=menteinquebravel" 
-    onclick="fbq('track', 'Lead'); fbq('track', 'InitiateCheckout');" 
-    rel="noopener noreferrer" 
-    target="_blank"
+    href="https://payment.ticto.app/OFFC78578?utm_source=meta&utm_campaign=menteinquebravel"
+  target="_blank" 
+  rel="noopener noreferrer"
+  onclick="fbq('trackCustom', 'ClickBotaoSemCompra'); 
+           fbq('track', 'Lead'); 
+           fbq('track', 'InitiateCheckout'); 
+           enviarAddToCart(
+             document.getElementById('email').value, 
+             document.getElementById('telefone').value
+           );"
   >
     <span class="tracking-wide">🔓 Sim, está na hora de sair desse ciclo e assumir o controle</span>
   </a>
@@ -957,7 +969,18 @@
 
 
 						<div class="animate-pulse-attention">
-							<a class="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary hover:bg-primary/90 h-10 font-bold transition-all duration-300 hover:scale-110 border-2 tracking-wide shadow-2xl relative overflow-hidden group bg-gradient-to-r from-yellow-500 to-red-600 text-black hover:from-yellow-400 hover:to-red-500 border-yellow-400 rounded-xl shadow-yellow-500/50 text-xl py-8 px-16" href="https://payment.ticto.app/OFFC78578?utm_source=meta&utm_campaign=menteinquebravel" onclick="fbq('trackCustom', 'ClickBotaoSemCompra'); fbq('track', 'Lead'); fbq('track', 'InitiateCheckout');" rel="noopener noreferrer" target="_blank"><span class="relative z-10">🔑 Sim, quero reprogramar minha mente agora</span></a>
+							<a class="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary hover:bg-primary/90 h-10 font-bold transition-all duration-300 hover:scale-110 border-2 tracking-wide shadow-2xl relative overflow-hidden group bg-gradient-to-r from-yellow-500 to-red-600 text-black hover:from-yellow-400 hover:to-red-500 border-yellow-400 rounded-xl shadow-yellow-500/50 text-xl py-8 px-16"
+								href="https://payment.ticto.app/OFFC78578?utm_source=meta&utm_campaign=menteinquebravel"
+  target="_blank" 
+  rel="noopener noreferrer"
+  onclick="fbq('trackCustom', 'ClickBotaoSemCompra'); 
+           fbq('track', 'Lead'); 
+           fbq('track', 'InitiateCheckout'); 
+           enviarAddToCart(
+             document.getElementById('email').value, 
+             document.getElementById('telefone').value
+           );"
+								<span class="relative z-10">🔑 Sim, quero reprogramar minha mente agora</span></a>
 
 							<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
 							</div>
