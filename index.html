@@ -27,6 +27,26 @@
   <link as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="preload">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"><!-- Facebook Pixel Code -->
 
+<script>
+function getFbp() {
+  const match = document.cookie.match(/_fbp=([^;]+)/);
+  return match ? match[1] : '';
+}
+
+function getFbc() {
+  const match = document.cookie.match(/_fbc=([^;]+)/);
+  return match ? match[1] : '';
+}
+
+async function hashSHA256(input) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input.trim().toLowerCase());
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+</script>
+  
   <script>
     !function(f,b,e,v,n,t,s){
       if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
@@ -67,26 +87,32 @@
     }
 
     // Enviar evento com e-mail + telefone
-async function enviarAddToCart(email = '', telefone = '', fbLoginID = '') {
-  const hashedEmail = email ? await hashSHA256(email) : undefined;
-  const hashedPhone = telefone ? await hashSHA256(telefone) : undefined;
+<script>
+async function enviarAddToCartCompleto(email, telefone, nome, sobrenome, cidade, estado, pais, cep, fbLoginID) {
+  const em = await hashSHA256(email);
+  const ph = await hashSHA256(telefone);
+  const fn = await hashSHA256(nome);
+  const ln = await hashSHA256(sobrenome);
+  const ct = await hashSHA256(cidade);
+  const st = await hashSHA256(estado);
+  const country = await hashSHA256(pais);
+  const zp = await hashSHA256(cep);
 
   const eventData = {
     value: 29.99,
-    currency: 'BRL',
+    currency: "BRL",
+    em, ph, fn, ln, ct, st, country, zp,
+    fbp: getFbp(),
+    fbc: getFbc(),
     user_agent: navigator.userAgent,
+    fb_login_id: fbLoginID,
     external_id: `user_${Date.now()}`
   };
 
-  if (hashedEmail) eventData.em = hashedEmail;
-  if (hashedPhone) eventData.ph = hashedPhone;
-  if (fbLoginID) eventData.fb_login_id = fbLoginID;
-
-  fbq('track', 'AddToCart', eventData);
-  console.log("AddToCart enviado:", eventData);
+  fbq("track", "AddToCart", eventData);
+  console.log("Enviado AddToCart completo:", eventData);
 }
 </script>
-
   
   <link as_="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="preload">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
