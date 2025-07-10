@@ -67,23 +67,25 @@
     }
 
     // Enviar evento com e-mail + telefone
-    async function enviarAddToCart(email, telefone, fbLoginID = '') {
-      const hashedEmail = await hashSHA256(email);
-      const hashedPhone = await hashSHA256(telefone);
+async function enviarAddToCart(email = '', telefone = '', fbLoginID = '') {
+  const hashedEmail = email ? await hashSHA256(email) : undefined;
+  const hashedPhone = telefone ? await hashSHA256(telefone) : undefined;
 
-      fbq('track', 'AddToCart', {
-        value: 29.99,
-        currency: 'BRL',
-        em: hashedEmail,
-        ph: hashedPhone,
-        user_agent: navigator.userAgent,
-        fb_login_id: fbLoginID,
-        external_id: `user_${Date.now()}`
-      });
+  const eventData = {
+    value: 29.99,
+    currency: 'BRL',
+    user_agent: navigator.userAgent,
+    external_id: `user_${Date.now()}`
+  };
 
-      console.log("Evento AddToCart avançado enviado.");
-    }
-  </script>
+  if (hashedEmail) eventData.em = hashedEmail;
+  if (hashedPhone) eventData.ph = hashedPhone;
+  if (fbLoginID) eventData.fb_login_id = fbLoginID;
+
+  fbq('track', 'AddToCart', eventData);
+  console.log("AddToCart enviado:", eventData);
+}
+</script>
 
   
   <link as_="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="preload">
