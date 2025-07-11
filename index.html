@@ -1320,30 +1320,37 @@ async function hashSHA256(input) {
   return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-async function enviarAddPaymentInfo(email, telefone, nome, sobrenome, cidade, estado, pais, cep, fbLoginID = '') {
-  const em = await hashSHA256(email);
-  const ph = await hashSHA256(telefone);
-  const fn = await hashSHA256(nome);
-  const ln = await hashSHA256(sobrenome);
-  const ct = await hashSHA256(cidade);
-  const st = await hashSHA256(estado);
-  const country = await hashSHA256(pais);
-  const zp = await hashSHA256(cep);
-  const external_id = await hashSHA256(email); // usar e-mail como base para external_id
+<script>
+  async function hashSHA256(input) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input.trim().toLowerCase());
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  }
 
-  fbq('track', 'AddPaymentInfo', {
-    value: 29.99,
-    currency: 'BRL',
-    em, ph, fn, ln, ct, st, country, zp,
-    fbp: getFbp(),
-    fbc: getFbc(),
-    fb_login_id: fbLoginID,
-    user_agent: navigator.userAgent,
-    external_id
-  });
+  async function enviarAddPaymentInfo(email, telefone) {
+    const em = await hashSHA256(email);
+    const ph = await hashSHA256(telefone);
+    const external_id = em;
 
-  console.log('✅ Evento AddPaymentInfo com enriquecimento SHA256 enviado.');
-}
+    fbq("track", "AddPaymentInfo", {
+      value: 29.99,
+      currency: "BRL",
+      content_ids: ["89852"],
+      content_type: "product",
+      contents: [{ id: "89852", name: "O Arquivo Secreto da Mente Inquebrável", quantity: 1 }],
+      em,
+      ph,
+      external_id,
+      user_agent: navigator.userAgent,
+      client_ip_address: "{{INSERT_DYNAMICALLY}}",
+    });
+
+    console.log("✅ Evento AddPaymentInfo enviado com hashes criptografados");
+  }
+</script>
+
 </script>
 </body>
 </html>
