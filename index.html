@@ -1329,26 +1329,20 @@ async function enviarAddPaymentInfo(email, telefone, nome, sobrenome, cidade, es
   const st = await hashSHA256(estado);
   const country = await hashSHA256(pais);
   const zp = await hashSHA256(cep);
+  const external_id = await hashSHA256(email); // usar e-mail como base para external_id
 
   fbq('track', 'AddPaymentInfo', {
     value: 29.99,
     currency: 'BRL',
-    em,
-    ph,
-    fn,
-    ln,
-    ct,
-    st,
-    country,
-    zp,
+    em, ph, fn, ln, ct, st, country, zp,
     fbp: getFbp(),
     fbc: getFbc(),
     fb_login_id: fbLoginID,
     user_agent: navigator.userAgent,
-    external_id: `user_${Date.now()}`
+    external_id
   });
 
-  console.log('✅ AddPaymentInfo completo enviado com enriquecimento.');
+  console.log('✅ Evento AddPaymentInfo com enriquecimento SHA256 enviado.');
 }
 </script>
 </body>
