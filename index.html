@@ -1174,35 +1174,57 @@ async function enviarAddToCartCompleto(email, telefone, nome, sobrenome, cidade,
                 });
               </script> <!-- ✅ USER PARAMS TRACKING E PRIVACIDADE -->
                
-              <script defer>
-                function getCookie(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(';').shift();
-                }
+             <script defer>
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return '';
+  }
 
-                async function getGeoData() {
-                try {
-                const res = await fetch('https://ipapi.co/json/');
-                const data = await res.json();
+  async function hashSHA256(input) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input.trim().toLowerCase());
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
 
-                return {
-                city: data.city || '',
-                state: data.region || '',
-                postal_code: data.postal || '',
-                country: data.country || 'BR',
-                user_agent: navigator.userAgent,
-                fbc: getCookie('_fbc'),
-                fbp: getCookie('_fbp'),
-                external_id: '', 
-                ip_address: ''   
-                };
-                } catch (e) {
-                console.error('Erro ao buscar localização', e);
-                return {};
-                }
-                }
-              </script> 
+  async function getGeoData(email = '', telefone = '') {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+
+      const fbc = getCookie('_fbc');
+      const fbp = getCookie('_fbp');
+      const ip_address = data.ip || '';
+      const external_id = `user_${Date.now()}`;
+      const event_id = `evt_${Date.now()}`;
+
+      const hashedEmail = email ? await hashSHA256(email) : '';
+      const hashedPhone = telefone ? await hashSHA256(telefone) : '';
+
+      return {
+        city: data.city || '',
+        state: data.region || '',
+        postal_code: data.postal || '',
+        country: data.country || 'BR',
+        user_agent: navigator.userAgent,
+        ip_address: ip_address,
+        external_id: external_id,
+        fbc: fbc,
+        fbp: fbp,
+        event_id: event_id,
+        em: hashedEmail,
+        ph: hashedPhone
+      };
+    } catch (e) {
+      console.error('Erro ao buscar localização', e);
+      return {};
+    }
+  }
+</script>
+
               <script>
                 document.addEventListener("DOMContentLoaded", function () {
                 // Scroll até 50%
