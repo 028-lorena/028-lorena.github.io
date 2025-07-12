@@ -1151,228 +1151,105 @@ async function enviarAddToCartCompleto(email, telefone, nome, sobrenome, cidade,
                   </div>
                 </div>
               </footer>
-              <!-- ✅ SCRIPT DE COMPORTAMENTO DE EXPANSÃO/ACORDION -->
-              <script defer>
-                document.querySelectorAll('[data-radix-collection-item]').forEach(button => {
-                button.addEventListener('click', () => {
-                  const controls = button.getAttribute('aria-controls');
-                  const target = document.getElementById(controls);
-                  const expanded = button.getAttribute('aria-expanded') === 'true';
-
-                  document.querySelectorAll('[data-radix-collection-item]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
-                  document.querySelectorAll('[role="region"]').forEach(div => {
-                    div.setAttribute('data-state', 'closed');
-                    div.setAttribute('hidden', '');
-                  });
-
-                  if (!expanded) {
-                    button.setAttribute('aria-expanded', 'true');
-                    target.setAttribute('data-state', 'open');
-                    target.removeAttribute('hidden');
-                  }
-                });
-                });
-              </script> <!-- ✅ USER PARAMS TRACKING E PRIVACIDADE -->
-               
-             <script defer>
+             <script>
+  // Função para capturar cookie sem modificar
   function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return '';
+    return parts.length === 2 ? parts.pop().split(';').shift() : '';
   }
 
-  async function hashSHA256(input) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input.trim().toLowerCase());
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  async function getGeoData(email = '', telefone = '') {
-    try {
-      const res = await fetch('https://ipapi.co/json/');
-      const data = await res.json();
-
-      const fbc = getCookie('_fbc');
-      const fbp = getCookie('_fbp');
-      const ip_address = data.ip || '';
-      const external_id = `user_${Date.now()}`;
-      const event_id = `evt_${Date.now()}`;
-
-      const hashedEmail = email ? await hashSHA256(email) : '';
-      const hashedPhone = telefone ? await hashSHA256(telefone) : '';
-
-      return {
-        city: data.city || '',
-        state: data.region || '',
-        postal_code: data.postal || '',
-        country: data.country || 'BR',
-        user_agent: navigator.userAgent,
-        ip_address: ip_address,
-        external_id: external_id,
-        fbc: fbc,
-        fbp: fbp,
-        event_id: event_id,
-        em: hashedEmail,
-        ph: hashedPhone
-      };
-    } catch (e) {
-      console.error('Erro ao buscar localização', e);
-      return {};
-    }
-  }
-</script>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                // Scroll até 50%
-                let scrollTriggered = false;
-                window.addEventListener("scroll", () => {
-                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-                if (!scrollTriggered && scrollY > window.innerHeight / 2 && typeof fbq === 'function') {
-                fbq('trackCustom', 'ScrollDepth50');
-                scrollTriggered = true;
-                console.log('ScrollDepth50 enviado');
-                }
-                });
-              </script> 
-              <script>
-                 setTimeout(() => {
-                   fbq('trackCustom', 'Tempo45s');
-                 }, 45000);
-              </script> 
-              <script>
-                 setTimeout(() => {
-                   fbq('trackCustom', 'Tempo90s');
-                 }, 90000);
-              </script> 
-              <script>
-                const eventID = 'evt_' + Date.now();
-
-              </script> 
-              <script>
-                (function () {
-                function getParameterByName(name) {
-                const match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-                return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-                }
-
-                const fbcParam = getParameterByName('fbclid');
-                if (fbcParam) {
-                const now = new Date().getTime();
-                document.cookie = `_fbc=fb.1.${now}.${fbcParam}; path=/; domain=${location.hostname};`;
-                }
-                })();
-              </script> 
-              <script async defer src="https://cdn.utmify.com.br/scripts/utms/latest.js">
-              </script>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-  <script>
-  function getParameterByName(name) {
-      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-          results = regex.exec(location.search);
-      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-  }
-  const fbcParam = getParameterByName('fbclid');
-  if (fbcParam) {
-    const timestamp = Date.now();
-    document.cookie = `_fbc=fb.1.${timestamp}.${fbcParam}; path=/; domain=${location.hostname};`;
-  }
-
-  async function hashSHA256(input) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input.trim().toLowerCase());
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  async function enviarEventoCompleto(email, telefone) {
-    const hashedEmail = await hashSHA256(email);
-    const hashedPhone = await hashSHA256(telefone);
-
-    fbq('track', 'AddToCart', {
-      value: 29.99,
-      currency: 'BRL',
-      em: hashedEmail,
-      ph: hashedPhone,
-      user_agent: navigator.userAgent,
-      external_id: `user_${Date.now()}`
-    });
-
-    fbq('track', 'InitiateCheckout', {
-      em: hashedEmail,
-      ph: hashedPhone,
-      user_agent: navigator.userAgent
-    });
-
-    fbq('track', 'Purchase', {
-      value: 29.99,
-      currency: 'BRL',
-      em: hashedEmail,
-      ph: hashedPhone,
-      user_agent: navigator.userAgent
-    });
-  }
-  </script>
-<script>
-function getFbp() {
-  const match = document.cookie.match(/_fbp=([^;]+)/);
-  return match ? match[1] : '';
-}
-
-function getFbc() {
-  const match = document.cookie.match(/_fbc=([^;]+)/);
-  return match ? match[1] : '';
-}
-
-async function hashSHA256(input) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(input.trim().toLowerCase());
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-<script>
+  // Função de hash SHA256
   async function hashSHA256(input) {
     const encoder = new TextEncoder();
     const data = encoder.encode(input.trim().toLowerCase());
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
   }
 
-  async function enviarAddPaymentInfo(email, telefone) {
-    const em = await hashSHA256(email);
-    const ph = await hashSHA256(telefone);
-    const external_id = em;
+  // Função principal de envio de eventos com parâmetros avançados
+  async function enviarEventoMeta(email, telefone) {
+    const em = email ? await hashSHA256(email) : '';
+    const ph = telefone ? await hashSHA256(telefone) : '';
+    const fbc = getCookie('_fbc');
+    const fbp = getCookie('_fbp');
+    const user_agent = navigator.userAgent;
+    const external_id = em || `user_${Date.now()}`;
+    const event_id = `evt_${Date.now()}`;
 
-    fbq("track", "AddPaymentInfo", {
+    // Adiciona todos os eventos com os mesmos identificadores
+    fbq('track', 'AddToCart', {
       value: 29.99,
-      currency: "BRL",
-      content_ids: ["89852"],
-      content_type: "product",
-      contents: [{ id: "89852", name: "O Arquivo Secreto da Mente Inquebrável", quantity: 1 }],
+      currency: 'BRL',
       em,
       ph,
+      fbp,
+      fbc,
+      user_agent,
       external_id,
-      user_agent: navigator.userAgent,
-      client_ip_address: "{{INSERT_DYNAMICALLY}}",
+      event_id
     });
 
-    console.log("✅ Evento AddPaymentInfo enviado com hashes criptografados");
-  }
-</script>
+    fbq('track', 'InitiateCheckout', {
+      em,
+      ph,
+      fbp,
+      fbc,
+      user_agent,
+      external_id,
+      event_id
+    });
 
+    fbq('track', 'Purchase', {
+      value: 29.99,
+      currency: 'BRL',
+      em,
+      ph,
+      fbp,
+      fbc,
+      user_agent,
+      external_id,
+      event_id
+    });
+
+    fbq('track', 'AddPaymentInfo', {
+      value: 29.99,
+      currency: 'BRL',
+      content_ids: ['89852'],
+      content_type: 'product',
+      contents: [{
+        id: '89852',
+        name: 'O Arquivo Secreto da Mente Inquebrável',
+        quantity: 1
+      }],
+      em,
+      ph,
+      fbp,
+      fbc,
+      user_agent,
+      external_id,
+      event_id
+    });
+
+    console.log("✅ Todos os eventos enviados com parâmetros avançados e IDs sincronizados");
+  }
+
+  // Scroll tracking
+  document.addEventListener("DOMContentLoaded", function () {
+    let scrollTriggered = false;
+    window.addEventListener("scroll", () => {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      if (!scrollTriggered && scrollY > window.innerHeight / 2 && typeof fbq === 'function') {
+        fbq('trackCustom', 'ScrollDepth50');
+        scrollTriggered = true;
+      }
+    });
+
+    // Eventos por tempo de permanência
+    setTimeout(() => fbq('trackCustom', 'Tempo45s'), 45000);
+    setTimeout(() => fbq('trackCustom', 'Tempo90s'), 90000);
+  });
 </script>
 </body>
 </html>
