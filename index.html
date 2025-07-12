@@ -68,50 +68,35 @@ async function hashSHA256(input) {
       var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
           results = regex.exec(location.search);
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-
-    const fbcParam = getParameterByName('fbclid');
-    if (fbcParam) {
-      const timestamp = Date.now();
-      document.cookie = `_fbc=fb.1.${timestamp}.${fbcParam}; path=/; domain=${location.hostname};`;
-    }
+   
   </script>
-  <script>
-    // Hash SHA-256
-    async function hashSHA256(input) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(input.trim().toLowerCase());
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
+ 
     // Enviar evento com e-mail + telefone
 <script>
-async function enviarAddToCartCompleto(email, telefone, nome, sobrenome, cidade, estado, pais, cep, fbLoginID) {
-  const em = await hashSHA256(email);
-  const ph = await hashSHA256(telefone);
-  const fn = await hashSHA256(nome);
-  const ln = await hashSHA256(sobrenome);
-  const ct = await hashSHA256(cidade);
-  const st = await hashSHA256(estado);
-  const country = await hashSHA256(pais);
-  const zp = await hashSHA256(cep);
+  async function enviarAddToCartCompleto(email, telefone, nome, sobrenome, cidade, estado, pais, cep, fbLoginID) {
+    const em = await hashSHA256(email);
+    const ph = await hashSHA256(telefone);
+    const fn = await hashSHA256(nome);
+    const ln = await hashSHA256(sobrenome);
+    const ct = await hashSHA256(cidade);
+    const st = await hashSHA256(estado);
+    const country = await hashSHA256(pais);
+    const zp = await hashSHA256(cep);
 
-  const eventData = {
-    value: 29.99,
-    currency: "BRL",
-    em, ph, fn, ln, ct, st, country, zp,
-    fbp: getFbp(),
-    fbc: getFbc(),
-    user_agent: navigator.userAgent,
-    fb_login_id: fbLoginID,
-    external_id: `user_${Date.now()}`
-  };
+    const eventData = {
+      value: 29.99,
+      currency: "BRL",
+      em, ph, fn, ln, ct, st, country, zp,
+      fbp: getFbp(),
+      fbc: getFbc(),
+      user_agent: navigator.userAgent,
+      fb_login_id: fbLoginID,
+      external_id: `user_${Date.now()}`
+    };
 
-  fbq("track", "AddToCart", eventData);
-  console.log("Enviado AddToCart completo:", eventData);
-}
+    fbq("track", "AddToCart", eventData);
+    console.log("✅ AddToCart enviado com enriquecimento máximo", eventData);
+  }
 </script>
   
   <link as_="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="preload">
@@ -248,8 +233,7 @@ async function enviarAddToCartCompleto(email, telefone, nome, sobrenome, cidade,
                           const email = emailInput ? emailInput.value : '';
                           const phone = phoneInput ? phoneInput.value : '';
                           enviarAddToCart(email, phone);
-                        "
-
+                        "                       
                         rel="noopener noreferrer"
                         target="_blank">
                         <span class="relative z-10">🔥 QUERO QUEBRAR O CICLO ANTES QUE ELE ME DESTRUA – R$29,99</span>
