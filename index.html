@@ -1206,6 +1206,28 @@ async function hashSHA256(input) {
                   </div>
                 </div>
               </footer>
+<!-- ✅ SCRIPT DE COMPORTAMENTO DE EXPANSÃO/ACORDION -->
+              <script defer>
+              document.querySelectorAll('[data-radix-collection-item]').forEach(button => {
+              button.addEventListener('click', () => {
+                const controls = button.getAttribute('aria-controls');
+                const target = document.getElementById(controls);
+                const expanded = button.getAttribute('aria-expanded') === 'true';
+
+                document.querySelectorAll('[data-radix-collection-item]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+                document.querySelectorAll('[role="region"]').forEach(div => {
+                  div.setAttribute('data-state', 'closed');
+                  div.setAttribute('hidden', '');
+                });
+
+                if (!expanded) {
+                  button.setAttribute('aria-expanded', 'true');
+                  target.setAttribute('data-state', 'open');
+                  target.removeAttribute('hidden');
+                }
+              });
+              });
+              </script>
              <script>
   // Função para capturar cookie sem modificar
   function getCookie(name) {
