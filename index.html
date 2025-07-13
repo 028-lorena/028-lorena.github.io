@@ -422,12 +422,8 @@ async function hashSHA256(input) {
                       <br>
 
 
-                      <h2 class="text-3xl md:text-4xl font-light text-gray-300 mb-12 leading-relaxed">Se você chegou até aqui, é porque<br>
+                      <h2 class="text-3xl md:text-4xl font-light text-gray-300 mb-12 leading-relaxed">Se você chegou até aqui, é porque
                       <span class="text-white font-normal text-4xl md:text-5xl">reconhece esses sinais...</span></h2>
-
-
-                      <p class="text-gray-400 text-center text-base mb-4"><br>
-                      Você não está maluco. Você só nunca teve um nome pra isso que você sente.</p>
 
 
                       <div class="grid md:grid-cols-2 gap-8">
@@ -1038,12 +1034,24 @@ async function hashSHA256(input) {
                         </div>
 
 
-                        <div class="animate-pulse-attention">
-                          <a class="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary hover:bg-primary/90 h-10 font-bold transition-all duration-300 hover:scale-110 border-2 tracking-wide shadow-2xl relative overflow-hidden group bg-gradient-to-r from-yellow-500 to-red-600 text-black hover:from-yellow-400 hover:to-red-500 border-yellow-400 rounded-xl shadow-yellow-500/50 text-xl py-8 px-16" href="https://payment.ticto.app/OFFC78578?utm_source=meta&amp;utm_campaign=menteinquebravel" onclick="fbq('trackCustom', 'ClickBotaoSemCompra'); fbq('track', 'Lead'); fbq('track', 'InitiateCheckout'); enviarAddToCart( document.getElementById('email').value, document.getElementById('telefone').value );" rel="noopener noreferrer" target="_blank"><span class="relative z-10">🔑 Sim, quero reprogramar minha mente agora</span></a>
-
-                          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
-                          </div>
-                        </div>
+                <div class="mt-8 text-center space-y-4">
+                  <div class="mb-8 animate-pulse-attention">
+                    <div class="text-center">
+                      <a class="inline-flex items-center justify-center gap-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary hover:bg-primary/90 font-bold transition-all duration-300 hover:scale-105 border-2 tracking-wide shadow-2xl relative overflow-hidden group bg-gradient-to-r from-yellow-500 to-red-600 text-black hover:from-yellow-400 hover:to-red-500 border-yellow-400 py-4 px-6 sm:py-6 sm:px-12 rounded-xl shadow-yellow-500/50 text-base sm:text-lg text-center text-wrap break-words"
+                        href="https://payment.ticto.app/OFFC78578?utm_source=meta&amp;utm_campaign=menteinquebravel"
+                        onclick="
+                          fbq('trackCustom', 'ClickBotaoSemCompra'); 
+                          fbq('track', 'Lead'); 
+                          fbq('track', 'InitiateCheckout'); 
+                          const emailInput = document.getElementById('email');
+                          const phoneInput = document.getElementById('telefone');
+                          const email = emailInput ? emailInput.value : '';
+                          const phone = phoneInput ? phoneInput.value : '';
+                          enviarAddToCart(email, phone);
+                        "                       
+                        rel="noopener noreferrer"
+                        target="_blank">
+                        <span class="relative z-10">🔥 SIM, QUERO DOMINAR MINHA MENTE</span>
 
 
                         <div class="space-y-3">
