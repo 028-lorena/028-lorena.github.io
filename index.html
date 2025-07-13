@@ -70,8 +70,6 @@ async function hashSHA256(input) {
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
    
   </script>
- 
-    // Enviar evento com e-mail + telefone
 <script>
   async function enviarAddToCartCompleto(email, telefone, nome, sobrenome, cidade, estado, pais, cep, fbLoginID) {
     const em = await hashSHA256(email);
