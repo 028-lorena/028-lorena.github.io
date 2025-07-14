@@ -40,8 +40,31 @@
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '718747620906446');
-  fbq('track', 'PageView');
+  const email = 'email@exemplo.com';
+    const telefone = '5511999999999';
+    const nome = 'PrimeiroNome';
+    const sobrenome = 'Sobrenome';
+    const cidade = 'Cidade';
+    const estado = 'Estado';
+    const pais = 'BR';
+    const cep = '30140000';
+
+    const em = sha256(email);
+    const ph = sha256(telefone);
+    const fn = sha256(nome);
+    const ln = sha256(sobrenome);
+    const ct = sha256(cidade);
+    const st = sha256(estado);
+    const country = sha256(pais);
+    const zp = sha256(cep);
+    const external_id = em || `user_${Date.now()}`;
+
+    fbq('init', '718747620906446', {
+        em, ph, fn, ln, ct, st, country, zp,
+        fbp, fbc, external_id
+    });
+
+    fbq('track', 'PageView');
 </script>
 <noscript>
   <img height="1" width="1" style="display:none"
