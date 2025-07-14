@@ -1218,7 +1218,6 @@ onclick="
               });
               </script>
              <script>
-               
   // Função para capturar cookie sem modificar
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -1241,6 +1240,28 @@ onclick="
     setTimeout(() => fbq('trackCustom', 'Tempo45s'), 45000);
     setTimeout(() => fbq('trackCustom', 'Tempo90s'), 90000);
   });
-</script
+</script>
+<script>
+function enviarAddToCart() {
+    fbq('track', 'AddToCart', {
+        content_name: 'O Arquivo Secreto da Mente Inquebrável',
+        content_ids: ['ebook-mente-inquebravavel'],
+        content_type: 'product',
+        value: 39.99,
+        currency: 'BRL'
+    });
+}
+
+function enviarCheckout() {
+    fbq('track', 'InitiateCheckout', {
+        value: 39.99,
+        currency: 'BRL'
+    });
+}
+</script>
+
+<button onclick="enviarAddToCart()">Adicionar ao Carrinho</button>
+<button onclick="enviarCheckout()">Iniciar Checkout</button>
+
 </body>
 </html>
