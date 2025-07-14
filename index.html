@@ -32,99 +32,67 @@
 
 <!-- Facebook Pixel Base -->
 <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  const email = 'email@exemplo.com';
-    const telefone = '5511999999999';
-    const nome = 'PrimeiroNome';
-    const sobrenome = 'Sobrenome';
-    const cidade = 'Cidade';
-    const estado = 'Estado';
-    const pais = 'BR';
-    const cep = '30140000';
-
-    const em = sha256(email);
-    const ph = sha256(telefone);
-    const fn = sha256(nome);
-    const ln = sha256(sobrenome);
-    const ct = sha256(cidade);
-    const st = sha256(estado);
-    const country = sha256(pais);
-    const zp = sha256(cep);
-    const external_id = em || `user_${Date.now()}`;
-
-    fbq('init', '718747620906446', {
-        em, ph, fn, ln, ct, st, country, zp,
-        fbp, fbc, external_id
-    });
-
-    fbq('track', 'PageView');
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
 </script>
+
+<!-- Biblioteca para HASH SHA256 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+<script>
+// Função para gerar SHA256
+function sha256(value) {
+    return CryptoJS.SHA256(value.toLowerCase().trim()).toString();
+}
+
+// Função para pegar _fbp e _fbc corretamente
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : '';
+}
+const fbp = getCookie('_fbp');
+const fbc = getCookie('_fbc');
+
+// 🚨 
+const email = 'email@exemplo.com';
+const telefone = '5511999999999';
+const nome = 'PrimeiroNome';
+const sobrenome = 'Sobrenome';
+const cidade = 'Cidade';
+const estado = 'Estado';
+const pais = 'BR';
+const cep = '30140000';
+
+const em = sha256(email);
+const ph = sha256(telefone);
+const fn = sha256(nome);
+const ln = sha256(sobrenome);
+const ct = sha256(cidade);
+const st = sha256(estado);
+const country = sha256(pais);
+const zp = sha256(cep);
+const external_id = em || `user_${Date.now()}`;
+
+// ✅ INIT com Advanced Matching completo e limpo
+fbq('init', '718747620906446', {
+    em, ph, fn, ln, ct, st, country, zp,
+    fbp, fbc, external_id
+});
+fbq('track', 'PageView');
+</script>
+
 <noscript>
   <img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=718747620906446&ev=PageView&noscript=1"/>
 </noscript>
 <!-- FIM DO PIXEL BASE -->
 
-
-<script>
-function getFbp() {
-  const match = document.cookie.match(/_fbp=([^;]+)/);
-  return match ? match[1] : '';
-}
-
-function getFbc() {
-  const match = document.cookie.match(/_fbc=([^;]+)/);
-  return match ? match[1] : '';
-}
-
-async function hashSHA256(input) {
-  if (!input) return '';
-  const encoder = new TextEncoder();
-  const data = encoder.encode(input.trim().toLowerCase());
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function enviarEventosAvancados(email, telefone, nome, sobrenome, cidade, estado, pais, cep) {
-  const em = await hashSHA256(email);
-  const ph = await hashSHA256(telefone);
-  const fn = await hashSHA256(nome);
-  const ln = await hashSHA256(sobrenome);
-  const ct = await hashSHA256(cidade);
-  const st = await hashSHA256(estado);
-  const country = await hashSHA256(pais);
-  const zp = await hashSHA256(cep);
-
-  const fbp = getFbp();
-  const fbc = getFbc();
-  const user_agent = navigator.userAgent;
-  const external_id = em || `user_${Date.now()}`;
-  const event_id_add = `evt_add_${Date.now()}`;
-  const event_id_checkout = `evt_checkout_${Date.now()}`;
-
-  fbq('track', 'AddToCart', {
-    value: 29.99,
-    currency: 'BRL',
-    em, ph, fn, ln, ct, st, country, zp,
-    fbp, fbc, user_agent, external_id, event_id: event_id_add
-  });
-
-  fbq('track', 'InitiateCheckout', {
-    em, ph, fn, ln, ct, st, country, zp,
-    fbp, fbc, user_agent, external_id, event_id: event_id_checkout
-  });
-
-  console.log("✅ Eventos avançados enviados com enriquecimento máximo.");
-}
-</script>
 </head>
 
 <body class="bg-black text-white font-sans">
