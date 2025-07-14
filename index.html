@@ -28,25 +28,6 @@
   <link as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="preload">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"><!-- Facebook Pixel Code -->
 
-<script>
-function getFbp() {
-  const match = document.cookie.match(/_fbp=([^;]+)/);
-  return match ? match[1] : '';
-}
-
-function getFbc() {
-  const match = document.cookie.match(/_fbc=([^;]+)/);
-  return match ? match[1] : '';
-}
-
-async function hashSHA256(input) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(input.trim().toLowerCase());
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-</script>
   
   <script>
     !function(f,b,e,v,n,t,s){
@@ -60,7 +41,61 @@ async function hashSHA256(input) {
 
     fbq('init', '718747620906446');
     fbq('track', 'PageView');
-  </script><!-- End Facebook Pixel Code -->
+  </script>
+  <!-- End Facebook Pixel Code -->
+
+<script>
+function getFbp() {
+  const match = document.cookie.match(/_fbp=([^;]+)/);
+  return match ? match[1] : '';
+}
+
+function getFbc() {
+  const match = document.cookie.match(/_fbc=([^;]+)/);
+  return match ? match[1] : '';
+}
+
+async function hashSHA256(input) {
+  if (!input) return '';
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input.trim().toLowerCase());
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function enviarEventosAvancados(email, telefone, nome, sobrenome, cidade, estado, pais, cep) {
+  const em = await hashSHA256(email);
+  const ph = await hashSHA256(telefone);
+  const fn = await hashSHA256(nome);
+  const ln = await hashSHA256(sobrenome);
+  const ct = await hashSHA256(cidade);
+  const st = await hashSHA256(estado);
+  const country = await hashSHA256(pais);
+  const zp = await hashSHA256(cep);
+
+  const fbp = getFbp();
+  const fbc = getFbc();
+  const user_agent = navigator.userAgent;
+  const external_id = em || `user_${Date.now()}`;
+  const event_id_add = `evt_add_${Date.now()}`;
+  const event_id_checkout = `evt_checkout_${Date.now()}`;
+
+  fbq('track', 'AddToCart', {
+    value: 29.99,
+    currency: 'BRL',
+    em, ph, fn, ln, ct, st, country, zp,
+    fbp, fbc, user_agent, external_id, event_id: event_id_add
+  });
+
+  fbq('track', 'InitiateCheckout', {
+    em, ph, fn, ln, ct, st, country, zp,
+    fbp, fbc, user_agent, external_id, event_id: event_id_checkout
+  });
+
+  console.log("✅ Eventos avançados enviados com enriquecimento máximo.");
+}
+</script>
 </head>
 
 <body class="bg-black text-white font-sans">
@@ -1218,15 +1253,6 @@ async function hashSHA256(input) {
     return parts.length === 2 ? parts.pop().split(';').shift() : '';
   }
 
-  // Função de hash SHA256
-  async function hashSHA256(input) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input.trim().toLowerCase());
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-  }
-
   // Scroll tracking
   document.addEventListener("DOMContentLoaded", function () {
     let scrollTriggered = false;
@@ -1243,62 +1269,5 @@ async function hashSHA256(input) {
     setTimeout(() => fbq('trackCustom', 'Tempo90s'), 90000);
   });
 </script
-
-<script>
-function getFbp() {
-  const match = document.cookie.match(/_fbp=([^;]+)/);
-  return match ? match[1] : '';
-}
-
-function getFbc() {
-  const match = document.cookie.match(/_fbc=([^;]+)/);
-  return match ? match[1] : '';
-}
-
-async function hashSHA256(input) {
-  if (!input) return '';
-  const encoder = new TextEncoder();
-  const data = encoder.encode(input.trim().toLowerCase());
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function enviarEventosAvancados(email, telefone, nome, sobrenome, cidade, estado, pais, cep, ip_address = '') {
-  const em = await hashSHA256(email);
-  const ph = await hashSHA256(telefone);
-  const fn = await hashSHA256(nome);
-  const ln = await hashSHA256(sobrenome);
-  const ct = await hashSHA256(cidade);
-  const st = await hashSHA256(estado);
-  const country = await hashSHA256(pais);
-  const zp = await hashSHA256(cep);
-
-  const fbp = getFbp();
-  const fbc = getFbc();
-  const user_agent = navigator.userAgent;
-  const external_id = em || `user_${Date.now()}`;
-  const event_id_add = `evt_add_${Date.now()}`;
-  const event_id_checkout = `evt_checkout_${Date.now()}`;
-
-  // ADD TO CART
-  fbq('track', 'AddToCart', {
-    value: 29.99,
-    currency: 'BRL',
-    em, ph, fn, ln, ct, st, country, zp,
-    fbp, fbc, user_agent, client_ip_address: ip_address,
-    external_id, event_id: event_id_add
-  });
-
-  // INITIATE CHECKOUT
-  fbq('track', 'InitiateCheckout', {
-    em, ph, fn, ln, ct, st, country, zp,
-    fbp, fbc, user_agent, client_ip_address: ip_address,
-    external_id, event_id: event_id_checkout
-  });
-
-  console.log("✅ Eventos AddToCart e InitiateCheckout enviados com enriquecimento máximo.");
-}
-</script>
 </body>
 </html>
