@@ -84,7 +84,7 @@ fbq('init', '718747620906446', {
     fbp, fbc, external_id
 });
 fbq('track', 'PageView');
-</script>
+</script> 
 
 <noscript>
   <img height="1" width="1" style="display:none"
