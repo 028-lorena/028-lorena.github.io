@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php echo "NOIST";?>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
